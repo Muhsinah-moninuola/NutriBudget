@@ -1,7 +1,7 @@
 ```markdown
 # NutriBudget AI Tools & Prompts
 
-This README documents the AI tools used for **NutriBudget** and the exact prompts given for backend, frontend, and integration tasks.
+This README documents the AI tools used for NutriBudget and the exact prompts given for backend, frontend, and integration tasks.
 
 ---
 
@@ -16,18 +16,18 @@ This README documents the AI tools used for **NutriBudget** and the exact prompt
 
 ## AI Tools Used
 
-- **OpenAI ChatGPT** – for debugging, deployment guidance, and connecting frontend to backend  
-- **Bolt AI** – for backend development assistance  
-- **Lovable AI** – for frontend design guidance  
+- OpenAI ChatGPT – for debugging, deployment guidance, and connecting frontend to backend  
+- Bolt AI – for backend development assistance  
+- Lovable AI – for frontend design guidance  
 
 ---
 
 ## Prompts
 
-### 1. OpenAI ChatGPT
-**Purpose:** Debugging, deployment guide, and connecting frontend to backend.  
+#1. OpenAI ChatGPT
+Purpose: Debugging, deployment guide, and connecting frontend to backend.  
 
-**Prompt:**
+Prompt:
 ```
 
 You are helping with a hackathon project called NutriBudget. Provide guidance for:
@@ -43,8 +43,8 @@ Focus on practical, hackathon-ready solutions without overcomplicating the setup
 
 ---
 
-### 2. Bolt (Backend)
-**Prompt:**
+#2. Bolt (Backend)
+Prompt:
 ```
 
 Build a Flask backend for a hackathon project called NutriBudget. The backend should connect to a Supabase database and provide endpoints for ingredient-based recipe recommendations, weekly budget meal planning, AI nutrition insights, and premium feature management.
@@ -79,9 +79,9 @@ Code should be clean, well-commented, and ready to run for a hackathon MVP.
 
 ---
 
-### 3. Lovable (Frontend)
+3. Lovable (Frontend)
 
-**Initial Prompt:**
+Initial Prompt:
 ```
 
 Frontend Design Prompt for NutriBudget
@@ -206,7 +206,7 @@ Placeholders ready for backend integration
 
 ```
 
-**Final Frontend Prompt:**
+Final Frontend Prompt:
 ```
 Objective:
 Create a moderately styled, responsive web app frontend for NutriBudget. The app helps users plan meals with Nigerian ingredients based on budget and nutrition goals. The design should be cool, calm, and professional, using muted and appetizing tones (soft greens, warm neutrals, gentle creams). Avoid overly flashy colors or overly complex frameworks.
@@ -295,6 +295,5 @@ Clean, professional styling, but not over-engineered.
 
 Fully ready to connect to backend APIs later.
 
-```
 
 
