@@ -1,3 +1,4 @@
+import os
 from flask import Flask, jsonify
 from flask_cors import CORS
 import logging
@@ -114,7 +115,7 @@ if __name__ == '__main__':
         
         app.run(
             host='0.0.0.0',
-            port=5000,
+            port=int(os.environ.get("PORT", 5000)),  # use Render's assigned port
             debug=Config.DEBUG
         )
     except Exception as e:
