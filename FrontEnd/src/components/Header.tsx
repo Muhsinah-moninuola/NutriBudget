@@ -1,8 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
 import { useState } from "react";
+import { Link } from "react-router-dom"; // Import Link for proper navigation
 
-const Header = () => {
+// This is the new part: Define the props interface
+interface HeaderProps {
+  user: any; // Using 'any' to match your useAuth hook, but you can use a more specific type
+}
+
+const Header = ({ user }: HeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
@@ -13,7 +19,7 @@ const Header = () => {
             <span className="text-2xl font-bold text-primary">NutriBudget</span>
           </a>
         </div>
-        
+
         {/* Desktop Navigation */}
         <nav className="hidden md:flex flex-1 items-center justify-center space-x-8">
           <a className="text-sm font-medium text-foreground hover:text-primary transition-colors" href="#home">
@@ -38,12 +44,25 @@ const Header = () => {
 
         {/* Desktop Auth Buttons */}
         <div className="hidden md:flex items-center space-x-2">
-          <Button variant="ghost" size="sm">
-            Login
-          </Button>
-          <Button size="sm">
-            Sign Up
-          </Button>
+          {user ? (
+            <>
+              <Button variant="ghost" size="sm">
+                Profile
+              </Button>
+              <Button size="sm">
+                Log Out
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button variant="ghost" size="sm">
+                Login
+              </Button>
+              <Button size="sm">
+                Sign Up
+              </Button>
+            </>
+          )}
         </div>
 
         {/* Mobile Menu Button */}
@@ -51,7 +70,10 @@ const Header = () => {
           variant="ghost"
           size="sm"
           className="md:hidden ml-auto"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          onClick={() => setIsMenuOpen((prev) => !prev)}
+          aria-label="Toggle mobile menu"
+          aria-expanded={isMenuOpen}
+          aria-controls="mobile-menu"
         >
           <Menu className="h-4 w-4" />
         </Button>
@@ -59,7 +81,7 @@ const Header = () => {
 
       {/* Mobile Navigation */}
       {isMenuOpen && (
-        <div className="md:hidden border-t bg-background">
+        <div id="mobile-menu" className="md:hidden border-t bg-background">
           <nav className="flex flex-col space-y-4 p-4">
             <a className="text-sm font-medium text-foreground hover:text-primary transition-colors" href="#home">
               Home
@@ -80,12 +102,25 @@ const Header = () => {
               Contact
             </a>
             <div className="flex flex-col space-y-2 pt-4 border-t">
-              <Button variant="ghost" size="sm">
-                Login
-              </Button>
-              <Button size="sm">
-                Sign Up
-              </Button>
+              {user ? (
+                <>
+                  <Button variant="ghost" size="sm">
+                    Profile
+                  </Button>
+                  <Button size="sm">
+                    Log Out
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button variant="ghost" size="sm">
+                    Login
+                  </Button>
+                  <Button size="sm">
+                    Sign Up
+                  </Button>
+                </>
+              )}
             </div>
           </nav>
         </div>

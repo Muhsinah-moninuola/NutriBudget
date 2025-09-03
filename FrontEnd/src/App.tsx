@@ -1,46 +1,43 @@
-// src/App.tsx
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
+import { Toaster } from "./components/ui/toaster";
+import { Toaster as Sonner } from "./components/ui/sonner";
+import { TooltipProvider } from "./components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useAuth } from "./hooks/useAuth";
 
 // Pages
-import Index from "./pages/Index";           // Landing page
-import Recipes from "./pages/Recipes";       // All recipes listing
-import RecipeDetails from "./pages/RecipeDetails"; // Single recipe details
-import BudgetPlanner from "@/components/BudgetPlanner";
-import NotFound from "./pages/NotFound";     // Catch-all 404
+import Index from "./pages/Index";
+import Recipes from "./pages/Recipes";
+import RecipeDetails from "./pages/RecipeDetails";
+import BudgetPlanner from "./components/BudgetPlanner";
+import NotFound from "./pages/NotFound";
+import Signup from "./pages/Signup";
+import Login from "./pages/Login";
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          {/* Landing page */}
-          <Route path="/" element={<Index />} />
+const App = () => {
+  const { user } = useAuth();
 
-          {/* Recipes listing page */}
-          <Route path="/recipes" element={<Recipes />} />
-
-          {/* Single recipe detail page */}
-          <Route path="/recipes/:id" element={<RecipeDetails />} />
-
-        
-          {/* Premium page route */}
-          <Route path="/premium" element={<BudgetPlanner />} />
-
-
-          {/* Catch-all */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Index user={user} />} />
+            <Route path="/recipes" element={<Recipes />} />
+            <Route path="/recipes/:id" element={<RecipeDetails />} />
+            <Route path="/premium" element={<BudgetPlanner />} />
+            <Route path="/auth/signup" element={<Signup />} />
+            <Route path="/auth/login" element={<Login />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
+};
 
 export default App;

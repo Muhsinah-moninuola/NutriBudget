@@ -1,32 +1,10 @@
-import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/hero-ingredients.jpg";
-import { useAuth } from "@/hooks/useAuth"; // your Supabase auth hook
+import { useAuth } from "@/hooks/useAuth";
 
 const Hero = () => {
-  const { signUp } = useAuth();
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [showForm, setShowForm] = useState(false); // toggle registration form
-
-  // Quick signup handler
-  const handleGetStarted = async () => {
-    try {
-      await signUp(email, password);
-      alert("Registration successful! You are now logged in.");
-      setShowForm(false);
-      window.location.href = "/recipes"; // redirect to recipes page
-    } catch (err: any) {
-      alert(err.message);
-    }
-  };
-
-  // Scroll to AI suggestions section
-  const handleLearnMore = () => {
-    const section = document.getElementById("ai-chat");
-    if (section) section.scrollIntoView({ behavior: "smooth" });
-  };
+  const { user } = useAuth();
 
   return (
     <section
@@ -57,46 +35,33 @@ const Hero = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-            <Button
-              size="lg"
-              className="text-lg px-8 py-6"
-              onClick={() => setShowForm(!showForm)}
-            >
-              Get Started
-            </Button>
+            {/* Conditional rendering for the "Get Started" button */}
+            {user ? (
+              // If the user is logged in, this button navigates them to the recipes page
+              <Link to="/recipes">
+                <Button size="lg" className="text-lg px-8 py-6">
+                  Browse Recipes
+                </Button>
+              </Link>
+            ) : (
+              // If the user is not logged in, this button navigates them to the signup page
+              <Link to="/auth/signup">
+                <Button size="lg" className="text-lg px-8 py-6">
+                  Get Started
+                </Button>
+              </Link>
+            )}
 
-            <Button
-              variant="outline"
-              size="lg"
-              className="text-lg px-8 py-6"
-              onClick={handleLearnMore}
-            >
-              Learn More
-            </Button>
-          </div>
-
-          {/* Registration Form */}
-          {showForm && (
-            <div className="mt-6 p-6 bg-background/90 rounded-lg shadow-lg max-w-md mx-auto lg:mx-0">
-              <input
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full mb-4 px-4 py-3 rounded-lg border border-gray-300"
-              />
-              <input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full mb-4 px-4 py-3 rounded-lg border border-gray-300"
-              />
-              <Button className="w-full" onClick={handleGetStarted}>
-                Register
+            <a href="#ai-chat">
+              <Button
+                variant="outline"
+                size="lg"
+                className="text-lg px-8 py-6"
+              >
+                Learn More
               </Button>
-            </div>
-          )}
+            </a>
+          </div>
         </div>
       </div>
     </section>
